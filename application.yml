@@ -4,4 +4,33 @@ eureka:
     service-url:
       defaultZone: http://localhost:8010/eureka/
 
+---
+spring:
+  profiles: primary
+server:
+  port: 8010
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-secondary:8012/eureka/,http://eureka-tertiary:8013/eureka/
+
+---
+spring:
+  profiles: secondary
+server:
+  port: 8012
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-primary:8010/eureka/,http://eureka-tertiary:8013/eureka/
+
+---
+spring:
+  profiles: tertiary
+server:
+  port: 8013
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-primary:8010/eureka/,http://eureka-secondary:8012/eureka/
 
